@@ -50,10 +50,3 @@ module.exports.define = function() {
 
   return colorize;
 };
-
-module.exports.prod = function() {
-  console.ecolor = function() {};
-  return this;
-};
-
-module.exports.define();

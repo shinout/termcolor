@@ -1,6 +1,6 @@
 {
   "name": "termcolor"
-, "version": "0.1.0"
+, "version": "0.1.1"
 , "description": "console.color"
 , "tags": ["color", "console"]
 , "author": "SHIN Suzuki <shinout310@gmail.com>"
