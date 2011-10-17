@@ -11,15 +11,15 @@ termcolor
 
 ### Usage ###
 #### require ####
-    var tc = require("./termcolor").define();
-    // remember to call define(), which define methods under "console" object.
+    var tc = require("termcolor").define();
+    // remember to call define(), which defines methods under "console" object.
 
 #### the simplest usage ####
-    console.green("this is green");
+    console.green("this is green"); // displays "this is green" with green color to STDOUT
     console.cyan({hoge: "foobar"}, "multi args? N.P.");
 
 
-#### check which colors can we use ####
+#### check which colors we can use ####
     console.log(tc.colors);
     /* 
         ['black',
@@ -38,9 +38,9 @@ termcolor
 
 
 #### get colored string ####
-    var red    = tc.red("red string");
-    var purple = tc.purple("purple string");
-    console.log(red, purple);
+    var redstr    = tc.red("red string");
+    var purplestr = tc.purple("purple string");
+    console.log(redstr, purplestr);
 
 
 #### pass a color name as the first argument ####
