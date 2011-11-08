@@ -28,6 +28,7 @@ module.exports.colors = Object.keys(colors);
 module.exports.args = colorize_args;
 
 module.exports.define = function() {
+  if (colorize._defined) return this;
   console.color = function()  {
     console.log.apply(console, colorize_args.apply(console, arguments));
   };
@@ -47,6 +48,6 @@ module.exports.define = function() {
     };
     colorize[color] = function(v) { return colorize(v, color) };
   });
-
+  colorize._defined = true;
   return colorize;
 };
