@@ -14,6 +14,9 @@ termcolor
     var tc = require("termcolor").define();
     // remember to call define(), which defines methods under "console" object.
 
+    // var tc = require("termcolor").define;
+    // this is the same as define(), as termcolor internally use Object.defineProperty's getter/setter.
+
 #### the simplest usage ####
     console.green("this is green"); // displays "this is green" with green color to STDOUT
     console.cyan({hoge: "foobar"}, "multi args? N.P.");

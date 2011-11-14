@@ -10,8 +10,11 @@ const colors = {
   'white'  : '\033[37m'
 };
 
+var noop = function() {};
+
 
 function colorize(str, colorname) {
+  if (arguments.length == 0) return colorize;
   return (colors[colorname] || colors['white']) + str + colors['clear']
 }
 
@@ -22,32 +25,39 @@ function colorize_args() {
   return arguments;
 }
 
+
+colorize.colors = Object.keys(colors);
+colorize.args = colorize_args;
+
+
+Object.defineProperty(colorize, "define", {
+  get: function() {
+    if (colorize._defined) return colorize;
+
+    console.color = function()  {
+      console.log.apply(console, colorize_args.apply(console, arguments));
+    };
+
+    console.ecolor = function() {
+      console.error.apply(console, colorize_args.apply(console, arguments));
+    };
+
+    Object.keys(colors).forEach(function(color) {
+      console[color] = function() {
+        Array.prototype.unshift.call(arguments, color);
+        console.color.apply(console, arguments);
+      };
+      console['e' + color] = function(v) {
+        Array.prototype.unshift.call(arguments, color);
+        console.ecolor.apply(console, arguments);
+      };
+      colorize[color] = function(v) { return colorize(v, color) };
+    });
+    colorize._defined = true;
+
+    return colorize;
+  },
+  set: noop
+});
+
 module.exports = colorize;
-
-module.exports.colors = Object.keys(colors);
-module.exports.args = colorize_args;
-
-module.exports.define = function() {
-  if (colorize._defined) return this;
-  console.color = function()  {
-    console.log.apply(console, colorize_args.apply(console, arguments));
-  };
-
-  console.ecolor = function() {
-    console.error.apply(console, colorize_args.apply(console, arguments));
-  };
-
-  Object.keys(colors).forEach(function(color) {
-    console[color] = function() {
-      Array.prototype.unshift.call(arguments, color);
-      console.color.apply(console, arguments);
-    };
-    console['e' + color] = function(v) {
-      Array.prototype.unshift.call(arguments, color);
-      console.ecolor.apply(console, arguments);
-    };
-    colorize[color] = function(v) { return colorize(v, color) };
-  });
-  colorize._defined = true;
-  return colorize;
-};
