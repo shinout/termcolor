@@ -46,6 +46,13 @@ termcolor
     console.log(redstr, purplestr);
 
 
+#### bold ####
+    console.bold("hoge")
+    console.bold("green", "BOLD GREEN")
+    console.purpleB("with B")
+    console.eyellowB("e [color] B")
+
+
 #### pass a color name as the first argument ####
     console.color("green", "text with green color");
     console.ecolor("red", "text with red color", "to stderr");
